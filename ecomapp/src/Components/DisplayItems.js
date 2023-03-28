@@ -1,44 +1,37 @@
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
-const productsArr = [ {    
-    title: 'Colors',    
-    price: 100,    
-    imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',    
-    },    
-    {    
-    title: 'Black and white Colors',    
-    price: 50,    
-    imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
-    },    
-    {    
-    title: 'Yellow and Black Colors',    
-    price: 70,    
-    imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
-    },
-    {    
-    title: 'Blue Color',
-    price: 100,    
-    imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
-    }   
-    ];
+import {Card,Button} from 'react-bootstrap';
+import { ProductData } from './ProductData';
+import React,{useState} from 'react';
+
 
 function DisplayItems() {
+    const [productItems,setProductItems]=useState(ProductData)
   return (
-   <Card style={{ width: '100%' ,height:'100%'}}>
-    {productsArr.map((item)=>{
-        <Card style={{ width: '18rem' }}>
-         <Card.Img variant="top" src={item.imageUrl}/>
-          <Card.Body>
-           <Card.Title>{item.title}</Card.Title>
-          <Card.Text>{item.price}  </Card.Text>
-        </Card.Body>
+    <div>
+        <h1 className='position-relative'>
+             Music</h1>
+        {productItems.map((item)=>(
+            <div className="d-inline-flex p-5" >
+             <Card
+              style={{ width: '18rem' }}
+              className="shadow p-3 mb-2 bg-body-tertiary rounded">
+                 <Card.Img
+                  variant="top" 
+                  src={item.imageUrl}                 
+                 />
+                 <Card.Body>
+                 <Card.Title>{item.title}</Card.Title>
+                 <p> <Card.Text>{item.price} </Card.Text>
+                 <Button variant="primary" >Add To Cart</Button> </p> 
+                 </Card.Body>
+                 </Card>
+            </div>)
+        
+        )  }
 
-</Card>
-})}
 
-    </Card>
-   
-
+    </div>
+ 
+    
   
   );
 }
