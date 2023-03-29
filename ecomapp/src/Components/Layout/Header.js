@@ -1,5 +1,5 @@
 import React from "react";
-import { Nav,Navbar,Container } from "react-bootstrap";
+import { Nav,Navbar,Container, NavLink } from "react-bootstrap";
 import CartButton from "../CartButton/CartButton";
 
 
@@ -10,9 +10,9 @@ const Header=(props)=>{
         <Navbar sticky="top" className="bg-white shadow-sm-mb-3" >
         <Container>
           <Nav className="me-auto">
-          <Nav.Link href="#Home">Home</Nav.Link>
-         <Nav.Link href="#Store">Link</Nav.Link>
-         <Nav.Link href="#About">About</Nav.Link>
+          <Nav.Link as={NavLink} to= "/">Home</Nav.Link>
+         <Nav.Link as={NavLink} to= "/store">Store</Nav.Link>
+         <Nav.Link as={NavLink} to= "/about">About</Nav.Link>
          </Nav>
          <CartButton onClick={props.onShowCart}/>
         
