@@ -1,31 +1,27 @@
 import React,{useState} from 'react';
 import './App.css';
 
-import Card from 'react-bootstrap/Card'
 import DisplayItems from './Components/DisplayItems';
 import Header from './Components/Layout/Header';
 import Cart from './Components/CartButton/Cart';
 
 const  App=()=> {
   const [isCartShown,setCartShown]=useState(false);
-  const hideCArtHandler=()=>{
+  const hideCartHandler=()=>{
     setCartShown(false)
   }
   const showCartHandler=()=>{
-    setCartShown(true)
+       setCartShown(true)
   }
   return (
     <>
-    {isCartShown && <Cart onClose={hideCArtHandler}/>}
-     <Header onShowCart={showCartHandler} />
-      <Card bg="Primary" variant="light" style={{width:"100%",height:"400%"}}>
-          <Card.Text style={{fontStyle:"italic", fontSize:20,justifyContent:"center"}}>
-           <header >
-           <h1 className='display-1' container='fluid'> The Generics</h1> 
-           </header>
-          </Card.Text>
-      </Card>
-<DisplayItems/>
+    {isCartShown&& <Cart isShown={isCartShown} onClose={hideCartHandler}/>} 
+          <Header onShowCart={showCartHandler} />
+     {/* <main className="position-absolute top-50 start-0 translate-middle">
+       <h1> The Generics</h1>
+     </main> */}         
+      
+     <DisplayItems/>
     </>
     
      
