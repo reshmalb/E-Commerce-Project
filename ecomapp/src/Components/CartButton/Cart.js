@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Offcanvas, Stack } from "react-bootstrap";
 import CartItem from "./CartItem";
 import { cartElements } from "./CartElements";
+import ShoppingCartContext from "../../store/ShoppingContext";
 
 
 
 
 const Cart=(props)=>{
   const [isShown,setIsShown]=useState(true)
-  const [cartElement,setCartElements]=useState(cartElements);
+  const ctx=useContext(ShoppingCartContext)
+  const data=ctx.cartItems;
+  // const [cartElement,setCartElements]=useState(cartElements);
+  
     
     return(
 
@@ -28,15 +32,15 @@ const Cart=(props)=>{
                      <span className="text-muted">Quantity</span>
             </div>
             
-                {cartElements.map((item)=>(
+                {data.map((item)=>(
                   <CartItem key={item.id} data={item}>
                   </CartItem> )
                 )}
                 <div className="ms-auto fw-bold fs-5">
                    Total Amount:{""}
-                   {cartElements.reduce((total,cartItem)=>{
-                    return total+cartItem.price*cartItem.quantity;
-                   },0)}
+                   {data.reduce((total,cartItem)=>
+                    {return total+cartItem.price*cartItem.quantity;}
+                   ,0)}
                 </div>
 
               </Stack>

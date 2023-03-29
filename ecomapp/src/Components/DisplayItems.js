@@ -1,10 +1,24 @@
 import {Card,Button,Col,Row} from 'react-bootstrap';
 import { ProductData } from './ProductData';
-import React,{useState} from 'react';
+import React,{useContext, useState} from 'react';
+import ShoppingCartContext from '../store/ShoppingContext';
 
 
 const DisplayItems=()=> {
     const [productItems,setProductItems]=useState(ProductData)
+    const ctx=useContext(ShoppingCartContext);
+
+    const addItemToCartHandler=(item)=>{
+       console.log(item);
+         ctx.increaseCartItem({
+               id:item.id,
+               title:item.title,
+               price:item.price,
+               imageUrl:item.imageUrl,
+               quantity:1
+               });
+    }
+
   return (
     <>
     <h1> Music</h1>
@@ -12,10 +26,10 @@ const DisplayItems=()=> {
         className="g-5 ms-5 me-5">
           {productItems.map((item)=>{
                return(   <Col key={item.id}>
-                      <Card className='b-100'>
+                      <Card className='b-10'>
                           <Card.Img src={item.imageUrl}
-                            height="300px"
-                            width="10rem"
+                            height="200px"
+                            width="100px"
                             style={{objectFit:"cover"}}>
                           </Card.Img>
                           <Card.Body className='d-flex flex-column'>
@@ -26,7 +40,7 @@ const DisplayItems=()=> {
                                 <span className='ms-2 text-muted'>${item.price}</span>
                              </Card.Title>
                              <div className="mt-auto">
-                              <Button className='w-100'>
+                              <Button className='w-100' type="submit" onClick={addItemToCartHandler.bind(null,item)}>
                                 +ADD TO CART
                               </Button>
 
