@@ -7,12 +7,16 @@ const Header=(props)=>{
 
     return(
         
-        <Navbar bg="success" expand="sm" variant="dark" >
+        <Navbar sticky="top" className="bg-white shadow-sm-mb-3" >
         <Container>
-        <Nav.Link href="#Home">Home</Nav.Link>
+          <Nav className="me-auto">
+          <Nav.Link href="#Home">Home</Nav.Link>
          <Nav.Link href="#Store">Link</Nav.Link>
          <Nav.Link href="#About">About</Nav.Link>
+         </Nav>
          <CartButton onClick={props.onShowCart}/>
+        
+      
         </Container>
        </Navbar>
        
