@@ -4,13 +4,10 @@ import { Container,Row,Col} from "react-bootstrap"
 
 
 
-export const Home=()=>{
-    return    
-    (
-    <Footer>
-        
-    </Footer>
-      
-      
-    ) 
-}
+ const Home=()=>{
+    return (
+        <div> Home</div>
+    )
+ }
+
+export default Home;

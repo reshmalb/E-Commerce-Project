@@ -3,7 +3,8 @@ import React from "react";
 const ShoppingCartContext=React.createContext({
     cartItems:[],
     increaseCartItem:(item)=>{},
-    decreaseCartItem:(id)=>{}
+    decreaseCartItem:(id)=>{},
+    
 })
 
 export default ShoppingCartContext;

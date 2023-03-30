@@ -1,5 +1,6 @@
 import ShoppingCartContext from "./ShoppingContext";
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
+import Cart from "../Components/CartButton/Cart";
 
 const defaultState= {
         cartItems:[]
@@ -79,6 +80,7 @@ const cartReducer=((state,action)=>{
 const ShoppingCartProvider=(props)=>{
     const [cartElementState,dispatchCartItems]=useReducer
     (cartReducer,defaultState);
+    const [isOpen,setCartOpen]=useState(false)
 
     const increaseCartQunatityHandler=(item)=>{
         console.log(item)
@@ -89,18 +91,20 @@ const ShoppingCartProvider=(props)=>{
 
 
     }
- 
+
 
 
     const cartItems={
         cartItems:cartElementState.cartItems,
         increaseCartItem:increaseCartQunatityHandler,
-        decreaseCartItem:decreaseCartQuantityHandler
+        decreaseCartItem:decreaseCartQuantityHandler,
+      
     }
 
     return (
         <ShoppingCartContext.Provider value={cartItems}>
                 {props.children}
+             
         </ShoppingCartContext.Provider>
     )
 }
