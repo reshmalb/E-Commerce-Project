@@ -16,6 +16,7 @@ import NavBar from './Components/Layout/NavBar';
 import Header from './Components/Layout/Header';
 import Footer from './Components/Layout/Footer';
 import Store1 from './pages/Store1';
+import ContactUs from './pages/ContactUs';
 
 
 const  App=()=> {
@@ -30,20 +31,22 @@ const  App=()=> {
 // </main>
     
 return (
- <Router>
+
   <ShoppingCartProvider>
   <Header/>
   <Routes>
   <Route path="/" element={<Home/>}/>
-   <Route path="/about" element={<About/>}/>
   <Route path="/store" element={<Store/>}/> 
+  <Route path="/about" element={<About/>}/>
+  <Route path="/contactus" element={<ContactUs/>}></Route>
+
   </Routes>
   <Footer/>
   
   </ShoppingCartProvider>
  
  
-</Router>)
+)
                   
 
 }
