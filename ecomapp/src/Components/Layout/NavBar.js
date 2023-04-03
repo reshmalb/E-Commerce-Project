@@ -24,6 +24,8 @@ const NavBar=(props)=>{
             <Nav.Link to="/about" as={NavLink}>About</Nav.Link>
             <Nav.Link to="/contactus" as={NavLink}>Contact-Us</Nav.Link>
             <Nav.Link to="/login" as={NavLink}>Login</Nav.Link>
+            <Nav.Link to="/logout" as={NavLink}>Logout</Nav.Link>
+
 
 
 

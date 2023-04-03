@@ -32,6 +32,8 @@ return (
   <Route path="/about"><About/></Route>
   <Route path="/contactus" ><ContactUs/></Route>
   <Route path="/login"> <LoginPage/></Route>
+  <Route path="/logout"> <Home/></Route>
+
   
 
 
