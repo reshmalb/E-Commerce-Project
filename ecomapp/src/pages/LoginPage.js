@@ -5,12 +5,10 @@ import { useHistory } from "react-router-dom";
 
 
 const LoginPage=()=>{
+    const ctx=useContext(AuthContext);   
 
-    const ctx=useContext(AuthContext);
-    const history=useHistory();
-
-      const inputEmailref=useRef();
-      const inputPasswordref=useRef();
+    const inputEmailref=useRef();
+    const inputPasswordref=useRef();
 
     const onSubmitHandler=(e)=>{
     e.preventDefault();
@@ -19,9 +17,9 @@ const LoginPage=()=>{
 
 
   
-     let url=   'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD0an-iOy1im1Cjd3_OhzCjGooPUxdc7Es';
+     let url= 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD0an-iOy1im1Cjd3_OhzCjGooPUxdc7Es';
     
-    fetch(url,
+       fetch(url,
         {method:'POST',
           body:JSON.stringify({
             email:emailAddress,
@@ -50,13 +48,15 @@ const LoginPage=()=>{
 
         }).then((data)=>{
               console.log(data)//when successful request
-              history.replace('/store')
-              ctx.login(data.idToken)
+             ctx.login(data.idToken)
 
         }).catch((error)=>{
           alert(error.message)
 
         })
+        async function login(){
+
+        }
      
 }
 

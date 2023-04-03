@@ -10,7 +10,7 @@ const  CartButton=(props)=> {
     return curNumber+item.quantity;
 },0);
   return (
-    <Button style={{width:"3rem",height:"3rem",position:"relative"}}
+    <Button style={{width:"3rem",height:"3rem",position:"relative",marginTop:0}}
     variant="outline-primary"
     className='rounded-circle'
     onClick={props.onClick}>

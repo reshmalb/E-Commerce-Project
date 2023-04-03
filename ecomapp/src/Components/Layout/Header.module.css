@@ -1,0 +1,48 @@
+* {box-sizing: border-box;}
+.nav {
+overflow: hidden;
+background-color: #353333;
+padding: 10px;
+height: 50px;
+}
+.links {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+font-weight: bold;
+float: center;
+color:white;
+text-align: center;
+align-items: center;
+padding: 012px;
+text-decoration: dotted;
+font-size: 15px;
+line-height: 25px;
+border-radius: 4px;
+}
+nav .logo {
+font-size: 25px;
+font-weight: bold;
+}
+nav .links:hover {
+background-color:transparent;
+color: rgb(137, 133, 145);
+}
+nav .selected {
+background-color: rgb(71, 74, 74);
+color: white;
+}
+.rightSection {
+float: right;
+margin-top: 0;
+padding-bottom: 30px;
+padding-right: 30px;
+}
+@media screen and (max-width: 870px) {
+nav .links {
+float: none;
+display: block;
+text-align: left;
+}
+.rightSection {
+float: none;
+}
+}
