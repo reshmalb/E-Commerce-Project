@@ -2,6 +2,7 @@ import {Card,Button,Col,Row} from 'react-bootstrap';
 import {ProductData} from '../Data/ProductData'
 import React,{useContext, useState} from 'react';
 import ShoppingCartContext from '../store/ShoppingContext';
+import { Link } from 'react-router-dom';
 
 
 const Store=()=> {
@@ -18,6 +19,10 @@ const Store=()=> {
                quantity:1
                });
     }
+    const redirectToProductDetailsHandler=(id)=>{
+        const url=`/store/productdetails/${id}`;
+       
+    }
 
   return (
     <>
@@ -30,7 +35,8 @@ const Store=()=> {
                           <Card.Img src={item.imageUrl}
                             height="200px"
                             width="100px"
-                            style={{objectFit:"cover"}}>
+                            style={{objectFit:"cover"}} 
+                            onClick={redirectToProductDetailsHandler.bind(null,item.id)}>
                           </Card.Img>
                           <Card.Body className='d-flex flex-column'>
                              <Card.Title
