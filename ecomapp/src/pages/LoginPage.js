@@ -12,7 +12,7 @@ const LoginPage=()=>{
       const inputEmailref=useRef();
       const inputPasswordref=useRef();
 
-     const onSubmitHandler=(e)=>{
+    const onSubmitHandler=(e)=>{
     e.preventDefault();
     const emailAddress=inputEmailref.current.value;
     const password=inputPasswordref.current.value;
@@ -32,12 +32,12 @@ const LoginPage=()=>{
             'Content-Type':'application/json'
           }
         }
-        ).then(res=>{      
-              if(res.ok){
-                return res.json()
+        ).then(respone=>{      
+              if(respone.ok){
+                return respone.json()
           }
           else{
-          return  res.json().then(data=>{
+          return  respone.json().then(data=>{
               //show error
           
               let errorMessage="Authentication failed"
@@ -58,8 +58,6 @@ const LoginPage=()=>{
 
         })
      
-
-
 }
 
     return(
