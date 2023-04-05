@@ -4,7 +4,12 @@ import classes from './Division.module.css'
 const Division=()=>{
 
     return(
-        <div className={classes.div}>The Generics</div>
+        <div>
+          
+          <section className={classes.div}>The Generics</section>
+          
+       
+        </div>
 
     )
 }

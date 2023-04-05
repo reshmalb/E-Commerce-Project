@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Offcanvas, Stack } from "react-bootstrap";
+import React, { useContext, useEffect, useState } from "react";
+import { Button, Offcanvas, Stack } from "react-bootstrap";
 import CartItem from "./CartItem";
 import { cartElements } from "./CartElements";
 import ShoppingCartContext from "../../store/ShoppingContext";
@@ -10,9 +10,14 @@ import ShoppingCartContext from "../../store/ShoppingContext";
 const Cart=(props)=>{
   const [isShown,setIsShown]=useState(true)
   const ctx=useContext(ShoppingCartContext)
-  const data=ctx.cartItems;
+  console.log("inside cart module",ctx.cartItems)
+const data=ctx.cartItems;
+const hasitem=data.length>0
   // const [cartElement,setCartElements]=useState(cartElements);
-  
+  const cartItemRemoveHandler=(id)=>{
+    console.log("remove id",id)
+     ctx.decreaseCartItem(id);
+  }
     
     return(
 
@@ -32,15 +37,26 @@ const Cart=(props)=>{
                      <span className="text-muted">Quantity</span>
             </div>
             
-                {data.map((item)=>(
-                  <CartItem key={item.id} data={item}>
-                  </CartItem> )
-                )}
+                {ctx.cartItems.map((item)=> {return(
+                <CartItem key={item.id}
+                id={item.id}
+                title={props.title}
+                    url={item.imageUrl}
+                    quantity={item.quantity}
+                    price={item.price}
+                   onRemove={cartItemRemoveHandler.bind(null,item.id)}/>
+                 )}
+                )   }
                 <div className="ms-auto fw-bold fs-5">
-                   Total Amount:{""}
+                   Total Amount:{"            "}
                    {data.reduce((total,cartItem)=>
                     {return total+cartItem.price*cartItem.quantity;}
                    ,0)}
+                </div>
+                <div>
+               {hasitem &&<Button className="w-100  ">
+                    Purchase
+                  </Button> }   
                 </div>
 
               </Stack>

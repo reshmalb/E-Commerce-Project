@@ -1,0 +1,40 @@
+.divone
+{
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    width:100%;
+    background-color:limegreen;    
+}
+.divtwo
+{
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    width:100%;
+    height: auto;
+    margin-bottom: 0;
+   
+    background-color:rgb(15, 22, 15);    
+}
+.one
+{
+    background-color:limegreen;    
+}
+.two
+{
+    background-color:orange;
+}
+    
+        
+     
+    

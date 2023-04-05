@@ -29,48 +29,40 @@ const cartReducer=((state,action)=>{
           else {
             updatedItems=state.cartItems.concat(action.item);
           }
-          if(action.type ==='DECREASE'){
-            console.log("id",action.id);
-            const existingItemIndex = state.cartItems.findIndex((item)=>
-                 item.id === action.id);
-             const existingItem=state.cartItems[existingItemIndex];
-             console.log("exitem",existingItem ,existingItemIndex)
-
-            let updatedItems;
-            if(existingItem){
-            const updatedItem={...existingItem,
-                 quantity:existingItem.quantity-1}
-            updatedItems={...state.cartItems}
-            updatedItems[existingItemIndex]=updatedItem;
-            console.log("updateditems",updatedItems)
-
-               return{
-                      cartItems:updatedItems
-                     }
-
-          }
-            else{
-                return{
-                       cartItems:state.items
-                      }
-                 }
-      }
           return{
             cartItems:updatedItems
           }
-
-
-
-
           
-    }    
+        }
+ if(action.type ==="DECREASE"){
+    console.log("inside remove item id=",action.actionId)    
 
-      
-   
+    const existingCartItemIndex = state.cartItems.findIndex((item)=>
+    item.id===action.actionId);
+    console.log("Existing cartitem index=",existingCartItemIndex)
 
+  const existingCartItem = state.cartItems[existingCartItemIndex];
+  console.log("Existing cartitem=",existingCartItem)
 
+  //const updatedTotalMount = state.price-existingCartItem.price;
+  let updatedItems;
+  if(existingCartItem.quantity === 1){
+      updatedItems=state.cartItems.filter(item=> item.id != action.actionId);
+      }
+     else{
+      const updatedItem = {...existingCartItem,
+                          quantity:existingCartItem.quantity-1}
+  console.log("updated cartitem=",updatedItem)
 
-    
+      updatedItems=[...state.cartItems];
+      updatedItems[existingCartItemIndex]=updatedItem;
+  
+       }
+       return{
+        cartItems:updatedItems
+      }
+
+    } 
 
     return defaultState;
 })

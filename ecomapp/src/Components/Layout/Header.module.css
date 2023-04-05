@@ -3,7 +3,7 @@
 overflow: hidden;
 background-color: #353333;
 padding: 10px;
-height: 50px;
+
 }
 .links {
 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -12,8 +12,9 @@ float: center;
 color:white;
 text-align: center;
 align-items: center;
-padding: 012px;
-text-decoration: dotted;
+text-decoration: none;
+padding: 12px;
+
 font-size: 15px;
 line-height: 25px;
 border-radius: 4px;
@@ -34,7 +35,7 @@ color: white;
 float: right;
 margin-top: 0;
 padding-bottom: 30px;
-padding-right: 30px;
+
 }
 @media screen and (max-width: 870px) {
 nav .links {

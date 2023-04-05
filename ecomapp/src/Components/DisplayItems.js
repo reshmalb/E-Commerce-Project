@@ -32,6 +32,11 @@ const DisplayItems=()=> {
                             width="100px"
                             style={{objectFit:"cover"}}>
                           </Card.Img>
+                          <Card.Link href="#">view full</Card.Link>
+                          <Card.Body>
+                           
+
+                             </Card.Body>
                           <Card.Body className='d-flex flex-column'>
                              <Card.Title
                              className='d-flex justify-content-between
@@ -39,15 +44,15 @@ const DisplayItems=()=> {
                                 <span className='fs-2'>{item.title}</span>
                                 <span className='ms-2 text-muted'>${item.price}</span>
                              </Card.Title>
-                             <div className="mt-auto">
+                             <div className="mt-auto">                            
                               <Button className='w-100' type="submit" onClick={addItemToCartHandler.bind(null,item)}>
                                 +ADD TO CART
                               </Button>
 
                              </div>
-
+                            
                           </Card.Body>
-
+                         
                       </Card>
                   </Col>)
           })}

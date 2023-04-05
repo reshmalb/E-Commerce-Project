@@ -10,6 +10,7 @@ import ContactUs from './pages/ContactUs';
 import ProductDetails from './pages/ProductDetails';
 import LoginPage from './pages/LoginPage';
 import AuthContext from './store/AuthContext';
+import './App.css'
 
 const  App=()=> {
   const athctx=useContext(AuthContext);
@@ -19,9 +20,12 @@ const  App=()=> {
     
 return (
 
-  <ShoppingCartProvider>
+ <ShoppingCartProvider>
+  <div   className="layout">
+
+
   <Header/>
-  <main><Switch>
+  <main  style={{width:"100%",height:"100%"}}><Switch>
   <Route path="/home" exact>  <Home/>  </Route>
    <Route path='/store'><Store/></Route> 
   <Route path="/store/:productid" ><ProductDetails/></Route>
@@ -33,13 +37,11 @@ return (
 
   </Switch>
   
-  
   </main>
- 
-
 
   <Footer/>
-  
+
+  </div>
   </ShoppingCartProvider>
  
  
