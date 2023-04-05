@@ -7,10 +7,10 @@ import {Redirect, Route, Switch} from "react-router-dom";
 import Header from './Components/Layout/Header';
 import Footer from './Components/Layout/Footer';
 import ContactUs from './pages/ContactUs';
-import ProductDetails from './pages/ProductDetails';
 import LoginPage from './pages/LoginPage';
 import AuthContext from './store/AuthContext';
 import './App.css'
+import ViewDetails from './pages/ViewDetails';
 
 const  App=()=> {
   const athctx=useContext(AuthContext);
@@ -25,10 +25,11 @@ return (
 
 
   <Header/>
-  <main  style={{width:"100%",height:"100%"}}><Switch>
+  <main  style={{width:"100%",height:"100%"}}>
+    <Switch>
   <Route path="/home" exact>  <Home/>  </Route>
-   <Route path='/store'><Store/></Route> 
-  <Route path="/store/:productid" ><ProductDetails/></Route>
+   <Route path='/store' exact><Store/></Route> 
+  <Route path="/store/:productid" ><ViewDetails/></Route>
   <Route path="/about"><About/></Route>
   <Route path="/contactus" ><ContactUs/></Route>
   <Route path='/login'> <LoginPage/></Route>

@@ -1,0 +1,20 @@
+.div{
+    width:"50px";
+        height:"10px";
+        display:"grid" ;
+        background-Color:"blue";
+        padding :"2";
+        margin-Left:"10px";
+        margin-Top:"50px";
+        margin-Bottom:"50px";
+        padding-top: 5px;
+          
+}
+.leftSection{
+    float: left;
+}
+.rightSection{
+    float:center;
+    margin-top: 200px;
+    margin-left:500px;
+}

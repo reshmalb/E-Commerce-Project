@@ -2,6 +2,7 @@ import {Card,Button,Col,Row} from 'react-bootstrap';
 import { ProductData } from './ProductData';
 import React,{useContext, useState} from 'react';
 import ShoppingCartContext from '../store/ShoppingContext';
+import { Link, NavLink } from 'react-router-dom';
 
 
 const DisplayItems=()=> {
@@ -32,7 +33,7 @@ const DisplayItems=()=> {
                             width="100px"
                             style={{objectFit:"cover"}}>
                           </Card.Img>
-                          <Card.Link href="#">view full</Card.Link>
+                          <Button >View Details</Button>
                           <Card.Body>
                            
 
@@ -44,7 +45,8 @@ const DisplayItems=()=> {
                                 <span className='fs-2'>{item.title}</span>
                                 <span className='ms-2 text-muted'>${item.price}</span>
                              </Card.Title>
-                             <div className="mt-auto">                            
+                             <div className="mt-auto">     
+                             <Button >View Details</Button>                       
                               <Button className='w-100' type="submit" onClick={addItemToCartHandler.bind(null,item)}>
                                 +ADD TO CART
                               </Button>

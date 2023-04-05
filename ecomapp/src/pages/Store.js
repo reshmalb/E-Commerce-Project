@@ -2,6 +2,9 @@ import {Card,Button,Col,Row} from 'react-bootstrap';
 import {ProductData} from '../Data/ProductData'
 import React,{useContext, useState} from 'react';
 import ShoppingCartContext from '../store/ShoppingContext';
+import { NavLink } from 'react-router-dom';
+import { Link } from "react-router-dom";
+
 
 
 const Store=()=> {
@@ -14,14 +17,11 @@ const Store=()=> {
                id:item.id,
                title:item.title,
                price:item.price,
-               imageUrl:item.imageUrl,
+               imageUrl:item.imageUrl[0],
                quantity:1
                });
     }
-    const redirectToProductDetailsHandler=(id)=>{
-        const url=`/store/productdetails/${id}`;
-       
-    }
+    
 
   return (
     <>
@@ -31,12 +31,14 @@ const Store=()=> {
           {productItems.map((item)=>{
                return(   <Col key={item.id}>
                       <Card className='b-10'>
-                          <Card.Img src={item.imageUrl}
+                          <Card.Img src={item.imageUrl[0]}
                             height="200px"
                             width="100px"
                             style={{objectFit:"cover"}} 
-                            onClick={redirectToProductDetailsHandler.bind(null,item.id)}>
+                          >
                           </Card.Img>
+                          <Link  to={`/store/${item.id}`}> View Details</Link>
+
                           <Card.Body className='d-flex flex-column'>
                              <Card.Title
                              className='d-flex justify-content-between
@@ -45,6 +47,9 @@ const Store=()=> {
                                 <span className='ms-2 text-muted'>${item.price}</span>
                              </Card.Title>
                              <div className="mt-auto">
+                              <div>
+
+                              </div>
                               <Button className='w-100' type="submit" onClick={addItemToCartHandler.bind(null,item)}>
                                 +ADD TO CART
                               </Button>
