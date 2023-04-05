@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Container } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
@@ -56,7 +57,8 @@ const ContactUs=()=>{
 
 
   return (
-    <Form className="px-4 py-3" onSubmit={submithandler}>
+    <Container className="container-md" style={{paddingLeft:"100px",paddingRight:"100px"}}>
+ <Form  onSubmit={submithandler}>
         <Form.Group className="mb-3" controlId="formUserName">
         <Form.Label>UserName</Form.Label>
         <Form.Control type="text" placeholder="Username"
@@ -65,7 +67,7 @@ const ContactUs=()=>{
       </Form.Group>
       <Form.Group className="mb-3" controlId="formEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" 
+        <Form.Control  type="email" placeholder="Enter email" 
         value={email} onChange={emailChangeHandler} />  
     </Form.Group>
 
@@ -78,6 +80,8 @@ const ContactUs=()=>{
         Submit
       </Button>
     </Form>
+    </Container>
+   
   );
 }
 
