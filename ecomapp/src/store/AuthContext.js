@@ -10,7 +10,7 @@ const AuthContext=React.createContext({
 
 export const AuthorizationProvider=(props)=>{
    const initial_state=localStorage.getItem('token')
-   const [token,setToken]=useState(null)
+   const [token,setToken]=useState(initial_state)
     
     console.log("istoken",token)
     const userIsLoggedin = !!token;//return true if token is string

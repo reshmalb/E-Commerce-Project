@@ -4,15 +4,21 @@ import classes from './Header.module.css'
 import CartButton from "../CartButton/CartButton";
 import Cart from "../CartButton/Cart";
 import ShoppingCartContext from "../../store/ShoppingContext";
+import AuthContext from "../../store/AuthContext";
 
 const Header=()=>{
     const ctx=useContext(ShoppingCartContext)
+    const athctx=useContext(AuthContext)
     const [isCartShown,setCartShown]=useState(false);
     const hideCartHandler=()=>{
       setCartShown(false)
     }
     const showCartHandler=()=>{
        setCartShown(true);
+    }
+
+    const logoutHandler=()=>{
+      athctx.logout();
     }
     return(
 <nav className={classes.nav}>
@@ -23,8 +29,8 @@ const Header=()=>{
 <NavLink className={classes.links} to="/store" >Store</NavLink>
 <NavLink className={classes.links} to="/about">About</NavLink>
 <NavLink className={classes.links} to="/contactus" >Contact-Us</NavLink>
- <NavLink className={classes.links} to="/login" >Login</NavLink>
-<NavLink  className={classes.links}to="/logout" >Logout</NavLink>
+ {!athctx.isLoggedin &&<NavLink className={classes.links} to="/login" >Login</NavLink>}
+ {athctx.isLoggedin && <button  className={classes.links} onClick={logoutHandler} >Logout</button>}
 </nav>
 <div className={classes.rightSection}>
 

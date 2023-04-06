@@ -20,7 +20,6 @@ const LoginPage=()=>{
       
     }
   login(userContext)
-  history.push('/store')
 
   }
     
@@ -46,6 +45,7 @@ const LoginPage=()=>{
       else{
         const data=await response.json();      
         authctx.userLogin(data.idToken)
+        history.replace('/store')
       }
       
     }  

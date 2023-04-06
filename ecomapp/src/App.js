@@ -14,26 +14,30 @@ import ViewDetails from './pages/ViewDetails';
 
 const  App=()=> {
   const athctx=useContext(AuthContext);
-  console.log("isloggedin",athctx.isLoggedin)
-  
+  useContext(()=>{
+
+  },[athctx.isLoggedin])
+  console.log("is loggedin",athctx.isLoggedin)
     
 return (
-<AuthorizationProvider>
 <ShoppingCartProvider>
+
   <div   className="layout">
-
-
   <Header/>
   <main  style={{width:"100%",height:"100%"}}>
     <Switch>
   <Route path="/home" exact>  <Home/>  </Route>
-   <Route path='/store' exact><Store/></Route> 
-  <Route path="/store/:productid" ><ViewDetails/></Route>
+  <Route path='/store' exact>
+    {athctx.isLoggedin&& <Store/>}
+    {!athctx.isLoggedin &&  <Redirect to='/login'/>}
+  
+  </Route> 
+ {athctx.isLoggedin && <Route path="/store/:productid" ><ViewDetails/></Route>}
   <Route path="/about"><About/></Route>
   <Route path="/contactus" ><ContactUs/></Route>
-  <Route path='/login'> <LoginPage/></Route>
+ {!athctx.isLoggedin && <Route path='/login'> <LoginPage/></Route>}
  
-  <Route path="/logout"> <Home/></Route>
+ {athctx.isLoggedin&& <Route path="/logout"> <Home/></Route>}
 
   </Switch>
   
@@ -43,7 +47,6 @@ return (
 
   </div>
   </ShoppingCartProvider>
-</AuthorizationProvider>
  
  
  

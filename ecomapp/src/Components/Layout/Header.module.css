@@ -42,6 +42,7 @@ nav .links {
 float: none;
 display: block;
 text-align: left;
+background-color: none;
 }
 .rightSection {
 float: none;
