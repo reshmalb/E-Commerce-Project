@@ -12,24 +12,12 @@ export const AuthorizationProvider=(props)=>{
    const initial_state=localStorage.getItem('token')
    const [istoken,setToken]=useState(initial_state)
     
-//    const autoLogoutHandler=(timer)=>{
-//       const interval= setTimeout(() => {
-//         alert("Please Login .")
-//         logoutHandler();
-        
-//      }, timer);
-//      return(()=>{
-//         clearTimeout(interval)
-//      })
-//     }
-//     if(initial_state){
-//       autoLogoutHandler(5000)
-//     }   
+    console.log("istoken",istoken)
     const userIsLoggedin = !!istoken;//return true if token is string
-                                  // and not empty
+           console.log("context login value",userIsLoggedin)                       // and not empty
 
      const loginHandler=(token)=>{
-        setToken(token)
+        setToken(token);
         
         localStorage.setItem('token',token)
     //    autoLogoutHandler(5000)

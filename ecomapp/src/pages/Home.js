@@ -10,9 +10,9 @@ import classes from './Home.module.css'
     return (
       
       <>
-        <div className={classes.divone}/> 
+        <div /> 
 
-        <div className={classes.divtwo}/> 
+        <div /> 
 
 
       </>

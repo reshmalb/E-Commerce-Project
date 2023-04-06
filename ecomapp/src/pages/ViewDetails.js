@@ -39,6 +39,7 @@ return(
           </div>
           </div>
           <div className={classes.rightSection}>
+                <h4>{data[0].title}</h4>
                 <div className={classes.div}>
                   <img src={displayImage} ></img>
                       

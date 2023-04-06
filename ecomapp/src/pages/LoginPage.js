@@ -12,53 +12,52 @@ const LoginPage=()=>{
 
     const onSubmitHandler=(e)=>{
     e.preventDefault();
-    const emailAddress=inputEmailref.current.value;
+    const emailAddress=inputEmailref.current.value;  
     const password=inputPasswordref.current.value;
-
-
-  
-     let url= 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD0an-iOy1im1Cjd3_OhzCjGooPUxdc7Es';
+    const userContext={
+      email:emailAddress,password:password
+      
+    }
+  login(useContext)
+  }
     
-       fetch(url,
-        {method:'POST',
-          body:JSON.stringify({
-            email:emailAddress,
-            password:password,
-            returnSecureToken:true
-          }),
-          headers:{
-            'Content-Type':'application/json'
-          }
+  
+    async function login(useContext){
+    
+    let url= 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD0an-iOy1im1Cjd3_OhzCjGooPUxdc7Es';
+    try{
+
+    
+     const response=await  fetch(url,
+      {method:'POST',
+        body:JSON.stringify({
+          email:useContext.email,
+          password:useContext.password,
+          returnSecureToken:true
+        }),
+        headers:{
+          'Content-Type':'application/json'
         }
-        ).then(respone=>{      
-              if(respone.ok){
-                return respone.json()
-          }
-          else{
-          return  respone.json().then(data=>{
-              //show error
-          
-              let errorMessage="Authentication failed"
-              // if(data && data.error&& data.error.message){
-              //   errorMessage=data.error.message;
-              // }
-              throw new Error(errorMessage);
-            });
-          }
+      }
+      )
+      if(!response.ok){
+        throw new Error("something went wrong!!")
+      }
+      const data=await response.json();
+      ctx.login(data.idToken)
+    }  
 
-        }).then((data)=>{
-              console.log(data)//when successful request
-             ctx.login(data.idToken)
+  catch(error){
+       alert(error.message)
+  }
 
-        }).catch((error)=>{
-          alert(error.message)
+  }
+    
 
-        })
-        async function login(){
 
-        }
-     
-}
+      
+
+    
 
     return(
 
@@ -77,7 +76,7 @@ const LoginPage=()=>{
                  <Form.Group className="mb-3" controlId="formBasicCheckbox">
                
                  </Form.Group>
-             <Button variant="primary" type="submit"  >
+             <Button variant="primary"  >
                 Login
                  </Button>
              

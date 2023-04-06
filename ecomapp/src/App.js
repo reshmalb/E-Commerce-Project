@@ -1,4 +1,4 @@
-import React,{useContext, useState} from 'react';
+import React,{useContext, useEffect, useState} from 'react';
 import  Home from './pages/Home';
 import About from './pages/About';
 import Store from './pages/Store'
@@ -15,6 +15,9 @@ import ViewDetails from './pages/ViewDetails';
 const  App=()=> {
   const athctx=useContext(AuthContext);
   console.log("isloggedin",athctx.isLoggedin)
+  useEffect(()=>{
+
+  },[athctx.isLoggedin])
   
 
     
