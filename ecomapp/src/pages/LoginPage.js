@@ -6,7 +6,6 @@ import { useHistory } from "react-router-dom";
 
 const LoginPage=()=>{
     const ctx=useContext(AuthContext);   
-
     const inputEmailref=useRef();
     const inputPasswordref=useRef();
 
@@ -25,9 +24,7 @@ const LoginPage=()=>{
     async function login(useContext){
     
     let url= 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD0an-iOy1im1Cjd3_OhzCjGooPUxdc7Es';
-    try{
-
-    
+    try{    
      const response=await  fetch(url,
       {method:'POST',
         body:JSON.stringify({
