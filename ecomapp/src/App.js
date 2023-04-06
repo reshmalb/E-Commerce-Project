@@ -28,11 +28,11 @@ return (
     <Switch>
   <Route path="/home" exact>  <Home/>  </Route>
   <Route path='/store' exact>
-    {athctx.isLoggedin&& <Store/>}
+    {athctx.isLoggedin&& (<Store/>)}
     {!athctx.isLoggedin &&  <Redirect to='/login'/>}
   
   </Route> 
- {athctx.isLoggedin && <Route path="/store/:productid" ><ViewDetails/></Route>}
+ {athctx.isLoggedin && (<Route path="/store/:productid" ><ViewDetails/></Route>)}
   <Route path="/about"><About/></Route>
   <Route path="/contactus" ><ContactUs/></Route>
  {!athctx.isLoggedin && <Route path='/login'> <LoginPage/></Route>}
