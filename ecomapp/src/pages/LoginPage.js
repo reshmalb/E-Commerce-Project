@@ -20,8 +20,11 @@ const LoginPage=()=>{
       
     }
   login(userContext)
+  
+
 
   }
+    
     
   
     async function login(userContext){
@@ -43,8 +46,12 @@ const LoginPage=()=>{
         throw new Error("Authentication failed!!")
       }
       else{
-        const data=await response.json();      
-        authctx.userLogin(data.idToken)
+        const data=await response.json();   
+        //for autologout
+        const expirationTime=new Date(new Date().getTime()+(+data.expiresIn*1000))
+        let updatedEmail=userContext.email.replace('@','');
+             updatedEmail=updatedEmail.replace('.','');
+        authctx.userLogin(updatedEmail, data.idToken,expirationTime)
         history.replace('/store')
       }
       

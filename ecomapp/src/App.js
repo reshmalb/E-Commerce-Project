@@ -1,4 +1,4 @@
-import React,{useContext, useEffect, useState} from 'react';
+import React,{useContext} from 'react';
 import  Home from './pages/Home';
 import About from './pages/About';
 import Store from './pages/Store'
@@ -8,7 +8,7 @@ import Header from './Components/Layout/Header';
 import Footer from './Components/Layout/Footer';
 import ContactUs from './pages/ContactUs';
 import LoginPage from './pages/LoginPage';
-import AuthContext, { AuthorizationProvider } from './store/AuthContext';
+import AuthContext from './store/AuthContext';
 import './App.css'
 import ViewDetails from './pages/ViewDetails';
 
