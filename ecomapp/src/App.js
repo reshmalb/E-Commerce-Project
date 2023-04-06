@@ -8,22 +8,18 @@ import Header from './Components/Layout/Header';
 import Footer from './Components/Layout/Footer';
 import ContactUs from './pages/ContactUs';
 import LoginPage from './pages/LoginPage';
-import AuthContext from './store/AuthContext';
+import AuthContext, { AuthorizationProvider } from './store/AuthContext';
 import './App.css'
 import ViewDetails from './pages/ViewDetails';
 
 const  App=()=> {
   const athctx=useContext(AuthContext);
   console.log("isloggedin",athctx.isLoggedin)
-  useEffect(()=>{
-
-  },[athctx.isLoggedin])
   
-
     
 return (
-
- <ShoppingCartProvider>
+<AuthorizationProvider>
+<ShoppingCartProvider>
   <div   className="layout">
 
 
@@ -47,6 +43,8 @@ return (
 
   </div>
   </ShoppingCartProvider>
+</AuthorizationProvider>
+ 
  
  
 )

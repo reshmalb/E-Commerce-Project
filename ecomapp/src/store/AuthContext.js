@@ -4,23 +4,22 @@ import React,{useState} from "react";
 const AuthContext=React.createContext({
     token:'',
     isLoggedin:false,
-    login:(token)=>{},
+   userLogin:(token)=>{},
     logout:()=>{}
 })
 
 export const AuthorizationProvider=(props)=>{
    const initial_state=localStorage.getItem('token')
-   const [istoken,setToken]=useState(initial_state)
+   const [token,setToken]=useState(null)
     
-    console.log("istoken",istoken)
-    const userIsLoggedin = !!istoken;//return true if token is string
+    console.log("istoken",token)
+    const userIsLoggedin = !!token;//return true if token is string
            console.log("context login value",userIsLoggedin)                       // and not empty
 
      const loginHandler=(token)=>{
-        setToken(token);
-        
         localStorage.setItem('token',token)
-    //    autoLogoutHandler(5000)
+        console.log("token in handler",token)
+        setToken(token);        
      }     
      const logoutHandler=()=>{
         setToken(null)
@@ -28,17 +27,17 @@ export const AuthorizationProvider=(props)=>{
      }    
   
      
-     const context={
-        token:istoken,
+     const contextValue={
+        token:token,
         isLoggedin:userIsLoggedin,
-        login:loginHandler,
+        userLogin:loginHandler,
         logout:logoutHandler
      }
 
 
 
   return(
-    <AuthContext.Provider value={context}>
+    <AuthContext.Provider value={contextValue}>
     {props.children}
     </AuthContext.Provider>
 
