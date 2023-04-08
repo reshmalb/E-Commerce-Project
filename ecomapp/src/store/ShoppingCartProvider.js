@@ -13,7 +13,7 @@ const cartReducer=((state,action)=>{
         item.id===action.item.id
         )
       const existingItem=state.cartItems[existingItemIndex];          
-      console.log("id && item",existingItemIndex,existingItem)
+      // console.log("id && item",existingItemIndex,existingItem)
          
           if(existingItem){
              const updatedItem={...existingItem,
@@ -22,7 +22,7 @@ const cartReducer=((state,action)=>{
                    console.log(updatedItem)
             updatedItems=[...state.cartItems]
             updatedItems[existingItemIndex]=updatedItem;
-            console.log("inside updateditems",updatedItems)
+            // console.log("inside updateditems",updatedItems)
 
             }            
         
@@ -35,14 +35,14 @@ const cartReducer=((state,action)=>{
           
         }
  if(action.type ==="DECREASE"){
-    console.log("inside remove item id=",action.actionId)    
+    // console.log("inside remove item id=",action.actionId)    
 
     const existingCartItemIndex = state.cartItems.findIndex((item)=>
     item.id===action.actionId);
-    console.log("Existing cartitem index=",existingCartItemIndex)
+    // console.log("Existing cartitem index=",existingCartItemIndex)
 
   const existingCartItem = state.cartItems[existingCartItemIndex];
-  console.log("Existing cartitem=",existingCartItem)
+  // console.log("Existing cartitem=",existingCartItem)
 
   //const updatedTotalMount = state.price-existingCartItem.price;
   let updatedItems;
@@ -52,7 +52,7 @@ const cartReducer=((state,action)=>{
      else{
       const updatedItem = {...existingCartItem,
                           quantity:existingCartItem.quantity-1}
-  console.log("updated cartitem=",updatedItem)
+  // console.log("updated cartitem=",updatedItem)
 
       updatedItems=[...state.cartItems];
       updatedItems[existingCartItemIndex]=updatedItem;
@@ -63,6 +63,12 @@ const cartReducer=((state,action)=>{
       }
 
     } 
+    if(action.type==="ADD_EXIST_ITEMS"){
+      let updatedItems=state.cartItems.concat(action.item);
+      return{
+        cartItems:updatedItems
+      }
+    }
 
     return defaultState;
 })
@@ -82,6 +88,9 @@ const ShoppingCartProvider=(props)=>{
 
 
     }
+   const  addExistingCartItemsHandler=(item)=>{
+        dispatchCartItems({type:"ADD_EXIST_ITEMS",item:item})
+   }
 
 
 
@@ -89,6 +98,7 @@ const ShoppingCartProvider=(props)=>{
         cartItems:cartElementState.cartItems,
         increaseCartItem:increaseCartQunatityHandler,
         decreaseCartItem:decreaseCartQuantityHandler,
+        addCartItems:addExistingCartItemsHandler
       
     }
 

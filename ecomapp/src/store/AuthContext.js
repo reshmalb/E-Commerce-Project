@@ -4,7 +4,9 @@ import { useCallback } from "react";
 const AuthContext=React.createContext({
     token:'',
     email:'',
+    userId:'',
     isLoggedin:false,
+    setUserId:(userId)=>{},
    userLogin:(email,token,expiretime)=>{},
     logout:()=>{}
 })
@@ -40,6 +42,7 @@ const calculateRemainningTime=(expireTime)=>{
 export const AuthorizationProvider=(props)=>{
    const tokenData=retrieveStoredToken();
    const [email,setEmail]=useState(null);
+   const [userId,setUserId]=useState(null)
    let initialToken;
    if(tokenData){
       initialToken=tokenData.token;
@@ -55,7 +58,10 @@ export const AuthorizationProvider=(props)=>{
         localStorage.setItem('token',token);
         localStorage.setItem('exipirationTime',expireTime)
         const remainingTime=calculateRemainningTime(expireTime);
-   logoutTimer=  setTimeout(logoutHandler,remainingTime);
+        logoutTimer=  setTimeout(logoutHandler,remainingTime);
+
+
+        
 
      }     
      const logoutHandler=useCallback(()=>{
@@ -74,13 +80,17 @@ export const AuthorizationProvider=(props)=>{
       }
      },[tokenData,logoutHandler])
   
-     
+     const userIdHandler=(userId)=>{
+        setUserId(userId);
+     }
      const contextValue={
         token:token,
         email:email,
+        userId:userId,
         isLoggedin:userIsLoggedin,
         userLogin:loginHandler,
-        logout:logoutHandler
+        logout:logoutHandler,
+        setUserId:userIdHandler
      }
 
 

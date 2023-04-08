@@ -1,23 +1,52 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Button, Offcanvas, Stack } from "react-bootstrap";
 import CartItem from "./CartItem";
 import { cartElements } from "./CartElements";
 import ShoppingCartContext from "../../store/ShoppingContext";
+import AuthContext from "../../store/AuthContext";
 
 
 
 
 const Cart=(props)=>{
-  const [isShown,setIsShown]=useState(true)
-  const ctx=useContext(ShoppingCartContext)
-  console.log("inside cart module",ctx.cartItems)
+
+const [isShown,setIsShown]=useState(true)
+const ctx=useContext(ShoppingCartContext)
+const authctx=useContext(AuthContext)  
 const data=ctx.cartItems;
-const hasitem=data.length>0
+
+const [userEmail,setEmail]=useState(authctx.email)   
+const [userDetails,setUserDetails]=useState({})
+const hasitems=data.length>0;
+
   // const [cartElement,setCartElements]=useState(cartElements);
   const cartItemRemoveHandler=(id)=>{
     console.log("remove id",id)
      ctx.decreaseCartItem(id);
-  }
+      // addToCloud();
+               }
+
+  const addToCloud=(async()=>{
+    try{
+       const response=await fetch(`https://crudcrud.com/api/9649fb4f1a9d4fdbba95b361f252ca1d/loginDetails/${authctx.userId}`,{
+        method:'PUT',
+        body:JSON.stringify({
+          email:userEmail,
+          cart:data
+  
+        })
+      })
+    }catch(error){
+      alert(error.message)
+    }
+   
+  })
+
+  // if(hasitems){
+  //   addToCloud();
+  //  }
+
+  
     
     return(
 
@@ -40,10 +69,11 @@ const hasitem=data.length>0
                 {ctx.cartItems.map((item)=> {return(
                 <CartItem key={item.id}
                 id={item.id}
-                title={props.title}
+                title={item.title}
                     url={item.imageUrl}
                     quantity={item.quantity}
                     price={item.price}
+                    data={item}
                    onRemove={cartItemRemoveHandler.bind(null,item.id)}/>
                  )}
                 )   }
@@ -54,9 +84,9 @@ const hasitem=data.length>0
                    ,0)}
                 </div>
                 <div>
-               {hasitem &&<Button className="w-100  ">
+           {hasitems&&    <Button className="w-100  ">
                     Purchase
-                  </Button> }   
+                  </Button> }
                 </div>
 
               </Stack>

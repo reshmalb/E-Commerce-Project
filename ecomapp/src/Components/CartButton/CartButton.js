@@ -3,14 +3,18 @@ import { cartElements } from './CartElements';
 import CartIcon from './CartIcon';
 import ShoppingCartContext from '../../store/ShoppingContext';
 import { useContext } from 'react';
+import AuthContext from '../../store/AuthContext';
 
 const  CartButton=(props)=> {
+  const atx=useContext(AuthContext)
   const ctx=useContext(ShoppingCartContext)
   const numberOfCartItems  = ctx.cartItems.reduce((curNumber,item)=>{
     return curNumber+item.quantity;
 },0);
   return (
-    <Button style={{width:"3rem",height:"3rem",position:"relative",marginTop:0}}
+    <>
+
+   {atx.isLoggedin &&   <Button style={{width:"3rem",height:"3rem",position:"relative",marginTop:0}}
     variant="outline-primary"
     className='rounded-circle'
     onClick={props.onClick}>
@@ -25,7 +29,9 @@ const  CartButton=(props)=> {
       transform:"translate(25%,25%)"}}>
         {numberOfCartItems}
       </div>
-    </Button>
+    </Button>}
+    </>
+  
   );
 }
 

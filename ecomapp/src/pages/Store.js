@@ -1,39 +1,17 @@
 import {Card,Button,Col,Row} from 'react-bootstrap';
 import {ProductData} from '../Data/ProductData'
-import React,{useContext, useState} from 'react';
+import React,{useContext, useState,useEffect,useCallback} from 'react';
 import ShoppingCartContext from '../store/ShoppingContext';
 import { NavLink } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import AuthContext from '../store/AuthContext';
 
-async  function checkExistingCartDetails(email){
-  try{
-    const response= await fetch("https://crudcrud.com/api/d7181b044af945bc9494a7a2050b5996/loginDetails");
-    const data=await response.json();
-    const userDetails=data.filter((item)=> item.email===email)
-    console.log("userdetails",userDetails)
-    if(userDetails){
-      console.log(userDetails[0]._id)
-      return (userDetails[0]._id);
-    }
-    else{
-      return null;
-    }
-  }catch(error){
-    alert(error.message)
-  }
-    
-  }
 
 const Store=()=> {
+  const ctx=useContext(ShoppingCartContext);
+    const authctx=useContext(AuthContext);  
     const [productItems,setProductItems]=useState(ProductData)
-    const ctx=useContext(ShoppingCartContext);
-    const authctx=useContext(AuthContext);
-    
-   console.log(authctx.email)
-
-
-
+    console.log("authctx email",authctx.email)
     const addItemToCartHandler=(item)=>{
        console.log(item);
          ctx.increaseCartItem({
@@ -43,57 +21,8 @@ const Store=()=> {
                imageUrl:item.imageUrl[0],
                quantity:1
                });
-    }
 
-    const userId=checkExistingCartDetails(authctx.email);
-   // const userId=userdetails[0]._id;
-    console.log("userid",userId)
-    let url;
-    async function saveUserCartItems(item){
-
-    if(userId){  
-      url=
-      `https://crudcrud.com/api/d7181b044af945bc9494a7a2050b5996/loginDetails/${userId}`;
-      try{
-        const response=await fetch(url,
-        {
-          method:'PUT',
-            body  :JSON.stringify({
-              cart:item.id            
-
-            }),
-            headers:{
-              'Content-Type':'application/json'
-            }
-
-        })
-
-      }catch(error){
-        console.log(error)
-      }
-      }else{
-       url='https://crudcrud.com/api/d7181b044af945bc9494a7a2050b5996/loginDetails';
-       try{
-        const response=await fetch(url,
-        {
-          method:'POST',
-            body  :JSON.stringify({
-              email:authctx.email,
-              cart:item.id          
-
-            }),
-            headers:{
-              'Content-Type':'application/json'
-            }
-
-        })
-
-      }catch(error){
-        console.log(error)
-      }
-      }
-      
-    }
+              }  
 
   return (
     <>
