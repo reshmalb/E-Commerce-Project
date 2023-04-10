@@ -5,24 +5,183 @@ import ShoppingCartContext from '../store/ShoppingContext';
 import { NavLink } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import AuthContext from '../store/AuthContext';
+import axios from 'axios';
 
+
+const getUserDataByEmail=async (email)=>{
+  try{
+    const response=await axios.get('https://apicallsproject-7e177-default-rtdb.firebaseio.com/cartdetails.json')
+    //.then(response => {
+      const data = response.data;      
+       return data;
+    //  })
+    } catch(error )
+     {
+      console.log(error);
+   // });
+     }
+}
+
+const getEmailKey = (response,email) => {
+  if (response) {
+    const [key, value] = Object.entries(response).find(([key, value]) => value.email === email);
+    return key;
+  }
+  return null;
+}
+
+
+
+const  createNewData=async(cartData)=>{
+    try{
+      const response= await  axios.post('https://apicallsproject-7e177-default-rtdb.firebaseio.com/cartdetails.json', cartData)
+      const data=response.data;
+      return data;
+    }catch(error){
+      console.log(error.message)
+    }
+
+
+
+//   return  axios.post('https://apicallsproject-7e177-default-rtdb.firebaseio.com/cartdetails.json', cartData)
+//   .then(response => {
+//    const data = response.data; 
+//    return data;
+//   //  localStorage.setItem('key',response.data.name)
+//   // console.log("////",data)         
+//   //  setUserData({ key: response.data.name, data: cartData});
+   
+//    })
+//    .catch(error => {
+// console.log(error);
+//  })
+} 
+
+ 
 
 const Store=()=> {
   const ctx=useContext(ShoppingCartContext);
     const authctx=useContext(AuthContext);  
     const [productItems,setProductItems]=useState(ProductData)
-    console.log("authctx email",authctx.email)
-    const addItemToCartHandler=(item)=>{
-       console.log(item);
-         ctx.increaseCartItem({
-               id:item.id,
-               title:item.title,
-               price:item.price,
-               imageUrl:item.imageUrl[0],
-               quantity:1
-               });
+    const [email,setEmail]=useState(localStorage.getItem('email'))
+ // const [userData, setUserData] = useState(null);
+ const [response,setResponse]=useState(null)
 
-              }  
+
+
+
+
+ useEffect(()=>{
+   const responseData= getUserDataByEmail(email)
+   setResponse(responseData)
+   const emailKey=getEmailKey(response,email)
+   if(emailKey){
+    localStorage.setItem('key',emailKey)
+   }
+   else{
+             const cartData={
+              email:email
+               }
+     const newData=createNewData(cartData)
+     setResponse(newData);
+     const newEmailkey=getEmailKey(response,email)
+     if(newEmailkey){
+      localStorage.setItem('key',newEmailkey)
+     }
+
+   }
+
+ },[])
+
+
+
+
+   /// useEffect(()=>{     
+      
+    //   //.then(data => {
+    //    console.log("data=",data)
+
+    //    const dataItem =data.find((item,index) => item[index].email === email);
+    //    console.log("dataitem",dataItem)
+    // if (dataItem) {
+    //   // do something with the data item
+    //   localStorage.setItem('key',dataItem[0])  
+    //                  setUserData(data[0].cartItems)   
+    //                 const arr=data[0].cartItems
+    //                 if(arr.length>0){
+    //                   ctx.addCartItems(arr)
+    //                 }
+    // } else {
+    //   // create new data if not found      
+    //   const cartData = {
+    //     email: email
+    //     };
+
+    //     createNewData(cartData).then(data=>{
+    //       localStorage.setItem('key',data.name)
+    //       console.log("////",data)         
+    //      setUserData({ key: data.name, data: cartData});
+
+
+    //     }).catch(error=>{
+    //       console.log(error.message)
+    //     })
+    //   }
+    // })},[])
+    //             // for(const key in data){
+                //             if(data[key].email===email){     
+                //                   console.log("key=",key) 
+                //                         localStorage.setItem('key',key)  
+                //                         setUserData(data[key].cartItems)   
+                //                         const arr=data[key].cartItems
+                //                         console.log("array",arr)
+                //                         if(arr.length>0 ){
+                //                          ctx.addCartItems(arr)
+                //                         }
+                //                         return;                        
+                //                        }   
+                        
+                //     }
+                //     const existingkey=localStorage.getItem('key')            
+                //     if(existingkey===null||existingkey===undefined){
+         
+                //           const cartData = {
+                //             email: email
+             
+                //        };
+                //  axios.post('https://apicallsproject-7e177-default-rtdb.firebaseio.com/cartdetails.json', cartData)
+                //    .then(response => {
+                //     const data = response.data; 
+                //     localStorage.setItem('key',response.data.name)
+                //    console.log("////",data)         
+                //     setUserData({ key: response.data.name, data: cartData});
+                    
+                //     })
+                //     .catch(error => {
+                // console.log(error);
+                //   })} 
+                    
+                         
+                // })},[])          
+
+
+
+
+
+
+
+
+    
+    const addItemToCartHandler=(item)=>{
+      ctx.increaseCartItem({
+            id:item.id,
+            title:item.title,
+            price:item.price,
+            imageUrl:item.imageUrl[0],
+            quantity:1
+            }); 
+  
+     }  
 
   return (
     <>

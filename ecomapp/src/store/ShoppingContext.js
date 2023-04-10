@@ -4,8 +4,7 @@ const ShoppingCartContext=React.createContext({
     cartItems:[],
     addCartItems:(item)=>{},
     increaseCartItem:(item)=>{},
-    decreaseCartItem:(id)=>{},
-    
+    decreaseCartItem:(id)=>{},    
 })
 
 export default ShoppingCartContext;

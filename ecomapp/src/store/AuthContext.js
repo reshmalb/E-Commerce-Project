@@ -1,6 +1,7 @@
-import React,{useEffect, useState} from "react";
+import React,{useContext, useEffect, useState} from "react";
 import { useCallback } from "react";
-
+import axios from "axios";
+import ShoppingCartContext from "./ShoppingContext";
 const AuthContext=React.createContext({
     token:'',
     email:'',
@@ -43,11 +44,17 @@ export const AuthorizationProvider=(props)=>{
    const tokenData=retrieveStoredToken();
    const [email,setEmail]=useState(null);
    const [userId,setUserId]=useState(null)
+  const stx=useContext(ShoppingCartContext)
+
    let initialToken;
+
+  
+
+
    if(tokenData){
       initialToken=tokenData.token;
    }
- //  const initial_state=localStorage.getItem('token')
+
    const [token,setToken]=useState(initialToken);
     
     const userIsLoggedin = !!token;//return true if token is string
@@ -69,6 +76,8 @@ export const AuthorizationProvider=(props)=>{
         setEmail(null);
         localStorage.removeItem('token')
         localStorage.removeItem('expirationTime')
+        localStorage.removeItem('email')
+        localStorage.removeItem('key')
         if(logoutTimer){
 
          clearTimeout(logoutTimer);

@@ -19,6 +19,10 @@ const Header=()=>{
 
     const logoutHandler=()=>{
       athctx.logout();
+      localStorage.removeItem('key');
+      localStorage.removeItem('email')
+      localStorage.removeItem('expirationTime')
+      ctx.addCartItems([])
     }
     return(
 <nav className={classes.nav}>

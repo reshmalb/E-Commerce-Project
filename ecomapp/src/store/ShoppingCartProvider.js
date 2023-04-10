@@ -1,9 +1,34 @@
 import ShoppingCartContext from "./ShoppingContext";
 import { useReducer } from "react";
+import axios from "axios";
+
+
+function addtoCloud(newCartItems){
+  const id=localStorage.getItem('key');
+  const newemail=localStorage.getItem('email');
+  const newData={ 
+    email:newemail,
+    cartItems:newCartItems,
+  }
+  axios.put(`https://apicallsproject-7e177-default-rtdb.firebaseio.com/cartdetails/${id}.json`,newData)
+  .then(response=>{
+    console.log(response);
+  }).catch(error=>{
+    console.log(error.message)
+  })
+
+}
+
+
+
+
 
 const defaultState= {
         cartItems:[]
     };
+
+
+    
 
 const cartReducer=((state,action)=>{
   
@@ -13,38 +38,33 @@ const cartReducer=((state,action)=>{
         item.id===action.item.id
         )
       const existingItem=state.cartItems[existingItemIndex];          
-      // console.log("id && item",existingItemIndex,existingItem)
          
           if(existingItem){
              const updatedItem={...existingItem,
                   quantity:existingItem.quantity+action.item.quantity                    
                    }
-                   console.log(updatedItem)
+                   
             updatedItems=[...state.cartItems]
             updatedItems[existingItemIndex]=updatedItem;
-            // console.log("inside updateditems",updatedItems)
 
             }            
         
           else {
             updatedItems=state.cartItems.concat(action.item);
           }
+          addtoCloud(updatedItems);
           return{
             cartItems:updatedItems
           }
           
         }
  if(action.type ==="DECREASE"){
-    // console.log("inside remove item id=",action.actionId)    
 
     const existingCartItemIndex = state.cartItems.findIndex((item)=>
     item.id===action.actionId);
-    // console.log("Existing cartitem index=",existingCartItemIndex)
 
   const existingCartItem = state.cartItems[existingCartItemIndex];
-  // console.log("Existing cartitem=",existingCartItem)
 
-  //const updatedTotalMount = state.price-existingCartItem.price;
   let updatedItems;
   if(existingCartItem.quantity === 1){
       updatedItems=state.cartItems.filter(item=> item.id != action.actionId);
@@ -52,19 +72,22 @@ const cartReducer=((state,action)=>{
      else{
       const updatedItem = {...existingCartItem,
                           quantity:existingCartItem.quantity-1}
-  // console.log("updated cartitem=",updatedItem)
-
       updatedItems=[...state.cartItems];
       updatedItems[existingCartItemIndex]=updatedItem;
   
        }
+
+      
+      addtoCloud(updatedItems);
        return{
         cartItems:updatedItems
       }
 
     } 
     if(action.type==="ADD_EXIST_ITEMS"){
-      let updatedItems=state.cartItems.concat(action.item);
+      state.cartItems=[...action.item];
+      let updatedItems=state.cartItems;
+      console.log("updaated items  from cloud",updatedItems)
       return{
         cartItems:updatedItems
       }

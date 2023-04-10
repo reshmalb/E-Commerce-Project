@@ -4,6 +4,24 @@ import CartItem from "./CartItem";
 import { cartElements } from "./CartElements";
 import ShoppingCartContext from "../../store/ShoppingContext";
 import AuthContext from "../../store/AuthContext";
+import axios from "axios";
+
+
+function addtoCloud(newCartItems){
+  const id=localStorage.getItem('key');
+  const newData={ 
+    email:localStorage.getItem('email'),
+    cartItems:newCartItems,
+  }
+  axios.put(`https://apicallsproject-7e177-default-rtdb.firebaseio.com/cartdetails/${id}.json`,newData)
+  .then(response=>{
+    console.log(response);
+  }).catch(error=>{
+    console.log(error.message)
+  })
+
+}
+
 
 
 
@@ -13,38 +31,18 @@ const Cart=(props)=>{
 const [isShown,setIsShown]=useState(true)
 const ctx=useContext(ShoppingCartContext)
 const authctx=useContext(AuthContext)  
-const data=ctx.cartItems;
+const [data,setData]=useState(ctx.cartItems)
 
 const [userEmail,setEmail]=useState(authctx.email)   
 const [userDetails,setUserDetails]=useState({})
 const hasitems=data.length>0;
-
-  // const [cartElement,setCartElements]=useState(cartElements);
   const cartItemRemoveHandler=(id)=>{
     console.log("remove id",id)
      ctx.decreaseCartItem(id);
-      // addToCloud();
-               }
-
-  const addToCloud=(async()=>{
-    try{
-       const response=await fetch(`https://crudcrud.com/api/9649fb4f1a9d4fdbba95b361f252ca1d/loginDetails/${authctx.userId}`,{
-        method:'PUT',
-        body:JSON.stringify({
-          email:userEmail,
-          cart:data
-  
-        })
-      })
-    }catch(error){
-      alert(error.message)
+    //  const data=ctx.cartItems;
+    //  addtoCloud(data);     
     }
-   
-  })
-
-  // if(hasitems){
-  //   addToCloud();
-  //  }
+  
 
   
     
@@ -84,7 +82,7 @@ const hasitems=data.length>0;
                    ,0)}
                 </div>
                 <div>
-           {hasitems&&    <Button className="w-100  ">
+           {hasitems&&  <Button className="w-100  ">
                     Purchase
                   </Button> }
                 </div>
